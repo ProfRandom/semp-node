@@ -18,6 +18,10 @@ sensors:
     type: ds18b20
     address: 28-000000491730
 
+  - id: N
+    type: ds18b20
+    address: 28-000000cc088e
+
   - id: THP01
     type: bme280
     bus: 1

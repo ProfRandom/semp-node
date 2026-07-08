@@ -1,0 +1,5 @@
+PyYAML
+requests
+w1thermsensor
+adafruit-blinka
+adafruit-circuitpython-bme280
