@@ -1,28 +1,28 @@
 node:
-  id: P1
+  id: PX
 
 sensors:
   - id: C
     type: ds18b20
-    address: 28-00000048b650
+    address: 28-000000000000
 
   - id: W
     type: ds18b20
-    address: 28-000000484442
+    address: 28-000000000000
 
   - id: K
     type: ds18b20
-    address: 28-000000c8e589
+    address: 28-000000000000
 
   - id: X
     type: ds18b20
-    address: 28-000000491730
+    address: 28-000000000000
 
   - id: N
     type: ds18b20
-    address: 28-000000cc088e
+    address: 28-000000000000
 
   - id: THP01
     type: bme280
     bus: 1
-    address: 0x76
+    address: 118
