@@ -1,5 +1,18 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Virtual environment
 venv/
+.venv/
+
+# Runtime output
 output/
 logs/
+
+# Local backup logs
+backup.log
+backups.log
+
+# Local node configuration
+config/node.yaml
