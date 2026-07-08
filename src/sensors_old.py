@@ -1,39 +1,28 @@
-"""
-SEMP Sensor Module
-"""
-
-from w1thermsensor import W1ThermSensor
-
 import board
-import busio
-
-import adafruit_bme280.basic as adafruit_bme280
+import adafruit_bme280
+from w1thermsensor import W1ThermSensor
 
 
 def read_ds18b20(sensor):
     """
-    Read a DS18B20 temperature sensor.
+    Read a single DS18B20 sensor.
 
     Returns:
-        {
-            "C": 29.94
-        }
+        { "C": 29.94 }
     """
 
-    sensor_id = sensor["address"].removeprefix("28-")
+    ds = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, sensor["address"])
 
-    thermometer = W1ThermSensor(sensor_id=sensor_id)
-
-    temperature = thermometer.get_temperature()
+    temperature = round(ds.get_temperature(), 2)
 
     return {
-        sensor["id"]: round(temperature, 2)
+        sensor["id"]: temperature
     }
 
 
 def read_bme280(sensor):
     """
-    Read a BME280 environmental sensor.
+    Read a single BME280 sensor.
 
     Returns:
         {
@@ -43,17 +32,17 @@ def read_bme280(sensor):
         }
     """
 
-    i2c = busio.I2C(board.SCL, board.SDA)
+    i2c = board.I2C()
 
-    bme280 = adafruit_bme280.Adafruit_BME280_I2C(
+    bme = adafruit_bme280.Adafruit_BME280_I2C(
         i2c,
         address=sensor["address"]
     )
 
     return {
-        f"{sensor['id']}_T": round(bme280.temperature, 2),
-        f"{sensor['id']}_H": round(bme280.humidity, 2),
-        f"{sensor['id']}_P": round(bme280.pressure, 2),
+        f"{sensor['id']}_T": round(bme.temperature, 2),
+        f"{sensor['id']}_H": round(bme.humidity, 2),
+        f"{sensor['id']}_P": round(bme.pressure, 2),
     }
 
 

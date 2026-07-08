@@ -1,28 +1,34 @@
+from pprint import pprint
+
 from config import load_node_config
-from sensors import read_ds18b20, read_bme280
+from scheduler import get_sync_time, get_obsnum
+from sensors import read_all_sensors
+from csv_writer import write_observation
 
 
 def main():
 
     config = load_node_config()
 
-    print(f"\nNode: {config['node']['id']}\n")
+    observation = {}
 
-    print("Sensors")
-    print("-------")
+    observation["NodeID"] = config["node"]["id"]
 
-    for sensor in config["sensors"]:
+    sync_time = get_sync_time()
 
-        print(f"ID:      {sensor['id']}")
-        print(f"Type:    {sensor['type']}")
+    observation["SyncTime"] = sync_time.strftime("%Y-%m-%d %H:%M:%S")
 
-        if sensor["type"] == "ds18b20":
-            read_ds18b20(sensor)
+    observation["ObsNum"] = f"{get_obsnum(sync_time):03d}"
 
-        elif sensor["type"] == "bme280":
-            read_bme280(sensor)
+    observation.update(read_all_sensors(config))
 
-        print()
+    print("\nObservation")
+    print("-----------")
+    pprint(observation)
+
+    write_observation(observation)
+
+    print("\nObservation written to CSV.\n")
 
 
 if __name__ == "__main__":
