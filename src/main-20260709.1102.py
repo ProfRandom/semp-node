@@ -1,4 +1,3 @@
-from datetime import datetime
 from pprint import pprint
 
 from config import load_node_config
@@ -13,13 +12,13 @@ def main():
 
     observation = {}
 
+    observation["NodeID"] = config["node"]["id"]
+
     sync_time = get_sync_time()
-    sys_time = datetime.now()
 
     observation["SyncTime"] = sync_time.strftime("%Y-%m-%d %H:%M:%S")
+
     observation["ObsNum"] = f"{get_obsnum(sync_time):03d}"
-    observation["SysTime"] = sys_time.strftime("%Y-%m-%d %H:%M:%S")
-    observation["NodeID"] = config["node"]["id"]
 
     observation.update(read_all_sensors(config))
 

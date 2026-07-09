@@ -14,7 +14,6 @@ def main():
     observation = {}
 
     sync_time = get_sync_time()
-    sys_time = datetime.now()
 
     observation["SyncTime"] = sync_time.strftime("%Y-%m-%d %H:%M:%S")
     observation["ObsNum"] = f"{get_obsnum(sync_time):03d}"
