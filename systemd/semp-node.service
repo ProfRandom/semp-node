@@ -1,0 +1,13 @@
+[Unit]
+Description=SEMP Observation Service
+
+[Service]
+Type=oneshot
+User=pi
+WorkingDirectory=/home/pi/jobs/semp-node
+ExecStart=/home/pi/jobs/semp-node/.semp/bin/python /home/pi/jobs/semp-node/src/main.py
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
