@@ -61,36 +61,16 @@ def read_all_sensors(config):
     """
     Read every configured sensor and return a
     single observation dictionary.
-
-    If an individual sensor cannot be read,
-    record NaN values and continue reading
-    the remaining sensors.
     """
 
     observation = {}
 
     for sensor in config["sensors"]:
 
-        try:
+        if sensor["type"] == "ds18b20":
+            observation.update(read_ds18b20(sensor))
 
-            if sensor["type"] == "ds18b20":
-                observation.update(read_ds18b20(sensor))
-
-            elif sensor["type"] == "bme280":
-                observation.update(read_bme280(sensor))
-
-        except Exception as err:
-
-            print(f"WARNING: Unable to read {sensor['id']}: {err}")
-
-            if sensor["type"] == "ds18b20":
-
-                observation[sensor["id"]] = float("nan")
-
-            elif sensor["type"] == "bme280":
-
-                observation[f"{sensor['id']}_T"] = float("nan")
-                observation[f"{sensor['id']}_H"] = float("nan")
-                observation[f"{sensor['id']}_P"] = float("nan")
+        elif sensor["type"] == "bme280":
+            observation.update(read_bme280(sensor))
 
     return observation
