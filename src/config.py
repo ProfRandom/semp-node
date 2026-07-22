@@ -18,7 +18,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 CONFIG_DIR = PROJECT_ROOT / "config"
 
-NODE_FILE = CONFIG_DIR / "node.yaml"
+NODE_FILE = CONFIG_DIR / "sensors.yaml"
 
 
 # ---------------------------------------------------------------------

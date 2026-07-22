@@ -1,0 +1,14 @@
+node:
+  id: P1-DEV
+
+sensors:
+  - id: T-DEV
+    type: ds18b20
+    address: 28-0000004a7f6d
+
+
+
+  - id: BME-DEV
+    type: bme280
+    bus: 1
+    address: 0x76
